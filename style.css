@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .navbar {
+    background-color: rgb(243, 234, 241);
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-logo a{
+    display: block;
+    
+  }
+  
+  .navbar-logo a:hover {
+    transition: all 1s ease-in-out;
+    transform: scale(1.1);
+  }
+  
+  .fa-shopping-bag {
+    font-size: 35px;
+    background: -moz-linear-gradient(to right, #ce7e4f 0%, #925efa 100%);
+    background: -webkit-linear-gradient(to right, #ce7e4f 0%, #925efa 100%);
+    background: linear-gradient(to right, #ce7e4f 0%, #925efa 100%);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .fa-camera{
+    font-size: 28px;
+  }
+  
+  .cart {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: "Nanum Brush Script", cursive;
+    
+  }
+
+  .panier{
+    line-height: 56%;
+  }
+
+  .decouvrir-btn a:hover{
+  color:white;
+  }
+  
+  .background-footer {
+    background-color: rgb(243, 234, 241);
+  }
