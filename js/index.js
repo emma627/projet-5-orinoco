@@ -5,13 +5,12 @@ let request = new XMLHttpRequest();
 request.open("get","http://localhost:3000/api/cameras", true);
 request.onload = function (){
     if(request.status == 200){
-        var cameras = JSON.parse(request.responseText);
-      var output = "";
+        let cameras = JSON.parse(request.responseText);
+        console.log(cameras);
        for (let i in cameras){
          
-       
          const camerasRowDiv = document.getElementById("cameras");
-       
+
         //création de div col bootstrap  
          let colDiv = document.createElement("div");
          colDiv.classList.add("col-12");
@@ -20,11 +19,11 @@ request.onload = function (){
          camerasRowDiv.appendChild(colDiv);
          //création de card    
          let cardDiv = document.createElement("div");
-         colDiv.classList.add("card");
-         colDiv.classList.add("mb-4");
-         colDiv.classList.add("mb-lg-0");
-         colDiv.classList.add("border-light");
-         colDiv.classList.add("shadow-sm");
+         cardDiv.classList.add("card");
+         cardDiv.classList.add("mb-4");
+         cardDiv.classList.add("mb-lg-0");
+         cardDiv.classList.add("border-light");
+         cardDiv.classList.add("shadow-sm");
          colDiv.appendChild(cardDiv);
          //création de image - camera image  
          let cameraImg = document.createElement("img");
@@ -42,23 +41,26 @@ request.onload = function (){
          h5.classList.add("text-center");
          h5.textContent = cameras[i].name;
          cardBodyDiv.appendChild(h5);
-         //création de paragrah withe classname card-text - camera description
+         //création de paragrah - camera description
          let cardTextP = document.createElement("p");
          cardTextP.className = "card-text";
          cardTextP.textContent = cameras[i].description;
          cardBodyDiv.appendChild(cardTextP);
-         //création de paragrash pour le prix
+         //création de paragragh pour le prix
          let prixP = document.createElement("p");
          prixP.classList.add("mt-2");
          prixP.classList.add("text-center");
-         //création de span à ajouter au parent prixP
+         cardBodyDiv.appendChild(prixP);
+         //création de span à ajouter au parent prix paragragh
          let prixSpan = document.createElement("span");
          prixSpan.className="text-primary";
-         prixSpan.textContent = "Prix: " 
-         prixP.textContent = cameras[i].price +"€";
-         
+         prixSpan.textContent = "Prix: ";
          prixP.appendChild(prixSpan);
-         cardBodyDiv.appendChild(prixP);
+         //création de span pour mettre la chiffre du prix et à ajouter au parent prix paragraph
+         let chiffreSpan = document.createElement("span");
+         chiffreSpan.textContent = (cameras[i].price /100)+"€";
+         prixP.appendChild(chiffreSpan);
+         
          //création de button div
          let decouvrirBtnDiv = document.createElement("div");
          decouvrirBtnDiv.classList.add("text-center");
@@ -71,13 +73,17 @@ request.onload = function (){
          produitLien.classList.add("btn-warning");
          produitLien.classList.add("stretched-link");
          decouvrirBtnDiv.appendChild(produitLien);
-         //création des icons à ajouter au  parent lien
+         //création de icon appareil photo à ajouter au  parent lien
          let cameraIcon = document.createElement("i");
          cameraIcon.classList.add("fas");
          cameraIcon.classList.add("fa-camera");
          cameraIcon.classList.add("mr-2");
          produitLien.appendChild(cameraIcon);
-         
+         //création de span pour mettre le mot "Découvrir"
+         let decouvrirSpan = document.createElement("span");
+         decouvrirSpan.textContent = "Découvrir"
+         produitLien.appendChild(decouvrirSpan);
+         //création de icon arrow à ajouter au  parent lien
          let arrowIcon = document.createElement("i");
          arrowIcon.classList.add("fas");
          arrowIcon.classList.add("fa-arrow-right");
@@ -85,11 +91,9 @@ request.onload = function (){
          produitLien.appendChild(arrowIcon);
         
 
-           
-
           ;
        }
-       document.getElementById("fcameras").innerHTML = output;
+       
 
     }
 }
