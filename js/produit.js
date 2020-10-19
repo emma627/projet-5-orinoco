@@ -2,26 +2,13 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get("id");
-//console.log(id);
-
+console.log(id);
 // function getId(){
 //     const queryString = window.location.search;
 //     const id = queryString.replace("?id=","");
 //     return id;
 // }
-//récupérer des données et envoyer au panier
 
-function addToBasket(cameraChoisi) {
-  let basketContentArray = JSON.parse(
-    localStorage.getItem("basketContentArray")
-  );
-  if (basketContentArray === null) {
-    basketContentArray = [];
-  }
-  
-  basketContentArray.push(cameraChoisi);
-  localStorage.setItem("basketContentArray",JSON.stringify(basketContentArray));
-}
 
 function loadCamera() {
   let request = new XMLHttpRequest();
@@ -29,7 +16,6 @@ function loadCamera() {
   request.open("get", "http://localhost:3000/api/cameras/" + id, true);
   request.onload = function () {
     if (request.status == 200) {
-      
       var camera = JSON.parse(request.responseText);
 
       let bigContainer = document.getElementById("product");
@@ -91,7 +77,7 @@ function loadCamera() {
       prductPrixP.appendChild(productPrixSpan);
       //création de span pour mettre la chiffre du prix et à ajouter au parent prix paragraph
       let productChiffreSpan = document.createElement("span");
-      productChiffreSpan.textContent = (camera.price /100)+ "€";
+      productChiffreSpan.textContent = camera.price / 100 + "€";
       prductPrixP.appendChild(productChiffreSpan);
       //création de form
       let formDiv = document.createElement("form");
@@ -182,19 +168,43 @@ function loadCamera() {
       shoppingCart.classList.add("fas");
       shoppingCart.classList.add("fa-shopping-cart");
       addButton.appendChild(shoppingCart);
-      
+
       addButton.addEventListener("click", function (event) {
         event.preventDefault();
-
-        //stocker des données au localStorage
+        //stocker des données  comme un objet au localStorage
         let cameraChoisi = {
           name: camera.name,
+          image: camera.imageUrl,
           ID: camera._id,
-          price: (camera.price/100)  + " €",
+          price: camera.price / 100 ,
           lentille: selectLenses.value,
           quantite: selectQuantite.value,
         };
         console.log(cameraChoisi);
+        //récupérer des données et envoyer au panier
+        function addToBasket(cameraChoisi) {
+          //récupérer des données véritables si le tableau exsite déjà
+          let basketContentArray = JSON.parse(
+            localStorage.getItem("basketContentArray")
+          );
+          //si le tableau n'existe pas, créer un tableau
+          if (basketContentArray == null) {
+            basketContentArray = [];
+          }
+
+          basketContentArray.push(cameraChoisi);
+          localStorage.setItem(
+            "basketContentArray",
+            JSON.stringify(basketContentArray)
+          );
+          let test = confirm('voulez vous allez au panier?');
+          if (test){
+            window.location.href = "panier.html";
+          }else{
+            window.location.href = "index.html";
+          }
+          
+        }
 
         // //récupérer des données véritables si le tableau exsite déjà
         // let basketContentArray = JSON.parse(localStorage.getItem("basketContentArray"));
@@ -221,7 +231,6 @@ function loadCamera() {
         //     console.log(basketContentArray);
         // };
         addToBasket(cameraChoisi);
-       
       });
     }
   };
