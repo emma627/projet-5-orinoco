@@ -127,11 +127,11 @@ function afficheContent() {
     let calculSpan = document.createElement("span");
     calculSpan.setAttribute("class", "text-primary items-price");
     //calcul du prix total
-    let total = 0;
+    let prixTotal = 0;
     for (let item of basketContentArray) {
-      total += item.quantite * item.price;
+      prixTotal += item.quantite * item.price;
     }
-    calculSpan.textContent = total + "€";
+    calculSpan.textContent = prixTotal + "€";
     prixTotalP.appendChild(calculSpan);
     //vider le panier
     let buttonCol = document.createElement("div");

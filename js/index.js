@@ -1,5 +1,4 @@
 
-
 function loadCameras(){
 let request = new XMLHttpRequest();
 request.open("get","http://localhost:3000/api/cameras", true);
@@ -7,7 +6,7 @@ request.onload = function (){
     if(request.status == 200){
         let cameras = JSON.parse(request.responseText);
         console.log(cameras);
-       for (let i in cameras){
+       for (let camera of cameras){
          
          const camerasRowDiv = document.getElementById("cameras");
 
@@ -28,8 +27,8 @@ request.onload = function (){
          //création de image - camera image  
          let cameraImg = document.createElement("img");
          cameraImg.className ="card-img-top";
-         cameraImg.src = cameras[i].imageUrl;
-         cameraImg.alt = "vintage camera" + cameras[i].name;
+         cameraImg.src = camera.imageUrl;
+         cameraImg.alt = "vintage camera" + camera.name;
          cardDiv.appendChild(cameraImg);
          //création de card-body   
          let cardBodyDiv = document.createElement("div");
@@ -39,12 +38,12 @@ request.onload = function (){
          let h5 = document.createElement("h5");
          h5.classList.add("card-title");
          h5.classList.add("text-center");
-         h5.textContent = cameras[i].name;
+         h5.textContent = camera.name;
          cardBodyDiv.appendChild(h5);
          //création de paragrah - camera description
          let cardTextP = document.createElement("p");
          cardTextP.className = "card-text";
-         cardTextP.textContent = cameras[i].description;
+         cardTextP.textContent = camera.description;
          cardBodyDiv.appendChild(cardTextP);
          //création de paragragh pour le prix
          let prixP = document.createElement("p");
@@ -58,9 +57,8 @@ request.onload = function (){
          prixP.appendChild(prixSpan);
          //création de span pour mettre la chiffre du prix et à ajouter au parent prix paragraph
          let chiffreSpan = document.createElement("span");
-         chiffreSpan.textContent = (cameras[i].price /100)+"€";
+         chiffreSpan.textContent = (camera.price /100)+"€";
          prixP.appendChild(chiffreSpan);
-         
          //création de button div
          let decouvrirBtnDiv = document.createElement("div");
          decouvrirBtnDiv.classList.add("text-center");
@@ -68,7 +66,7 @@ request.onload = function (){
          cardBodyDiv.appendChild(decouvrirBtnDiv);
          //création de lien à ajouter au parent button div
          let produitLien = document.createElement("a");
-         produitLien.href = "produit.html?id=" + cameras[i]._id;
+         produitLien.href = "produit.html?id=" + camera._id;
          produitLien.classList.add("btn");
          produitLien.classList.add("btn-warning");
          produitLien.classList.add("stretched-link");
@@ -89,15 +87,10 @@ request.onload = function (){
          arrowIcon.classList.add("fa-arrow-right");
          arrowIcon.classList.add("ml-2");
          produitLien.appendChild(arrowIcon);
-        
-
           ;
        }
-       
-
     }
 }
 request.send();
 }
-
 loadCameras();
