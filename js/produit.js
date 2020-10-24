@@ -1,5 +1,6 @@
 //récupérerqtion de l'ID URL de la page
 const queryString = window.location.search;
+console.log(window);
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get("id");
 console.log(id);
@@ -16,8 +17,9 @@ function loadCamera() {
   request.open("get", "http://localhost:3000/api/cameras/" + id, true);
   request.onload = function () {
     if (request.status == 200) {
+    
       var camera = JSON.parse(request.responseText);
-
+console.log(camera);
       let bigContainer = document.getElementById("product");
 
       // création h1 de la page

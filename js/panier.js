@@ -66,7 +66,7 @@ function afficheContent() {
       let br2 = document.createElement("br");
       itemLentille.appendChild(br2);
       let itemQuantite = document.createElement("span");
-      itemQuantite.textContent = "Quantitié: " + basketContentArray[i].quantite;
+      itemQuantite.textContent = "Quantité: " + basketContentArray[i].quantite;
       itemDescription.appendChild(itemQuantite);
       //prix,supprimer item de l'appareill photo
       let basketItemColDroite = document.createElement("div");
@@ -75,6 +75,17 @@ function afficheContent() {
         "col-12 col-md-6 mt-3 mb-3 droite"
       );
       basketItemRow.appendChild(basketItemColDroite);
+      //prix unitaire
+      let itemPriceP = document.createElement("p");
+      basketItemColDroite.appendChild(itemPriceP);
+      let itemPrixUnitaire = document.createElement("span");
+      itemPrixUnitaire.className = "text-primary";
+      itemPrixUnitaire.textContent = "Prix unitaire: ";
+      itemPriceP.appendChild(itemPrixUnitaire);
+      let itemUnitPrice = document.createElement("span");
+      itemUnitPrice.textContent = basketContentArray[i].price + "€";
+      itemPriceP.appendChild(itemUnitPrice);
+      //prix * quantité
       let itemPrixP = document.createElement("p");
       basketItemColDroite.appendChild(itemPrixP);
       let itemPrix = document.createElement("span");
@@ -85,6 +96,7 @@ function afficheContent() {
       itemPrice.textContent =
         basketContentArray[i].price * basketContentArray[i].quantite + "€";
       itemPrixP.appendChild(itemPrice);
+      //button supprimer l'article
       let supprimerButton = document.createElement("button");
       supprimerButton.setAttribute("type", "button");
       supprimerButton.setAttribute("class", "btn btn-warning");
@@ -173,7 +185,7 @@ function afficheContent() {
     }
 
     // création fonctions de validité adresse
-    function isValidAddresse(value) {
+    function isValidAdresse(value) {
       return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value);
     }
 
@@ -231,19 +243,19 @@ function afficheContent() {
       }
     });
     nomFormGroup.appendChild(nomInput);
-    //addresse email
+    //adresse email
     let emailFormGroup = document.createElement("div");
     emailFormGroup.className = "form-group col-md-6 pl-4 pr-4";
     formRow.appendChild(emailFormGroup);
     let emailLabel = document.createElement("label");
-    emailLabel.setAttribute("for", "addresseMail");
-    emailLabel.textContent = "Addresse Email:";
+    emailLabel.setAttribute("for", "adresseMail");
+    emailLabel.textContent = "Adresse Email:";
     emailFormGroup.appendChild(emailLabel);
     let emailInput = document.createElement("input");
     emailInput.setAttribute("type", "text");
     emailInput.className = "form-control";
-    emailInput.setAttribute("name", "addresseMail");
-    emailInput.setAttribute("placeholder", "votre addresse email");
+    emailInput.setAttribute("name", "adresseMail");
+    emailInput.setAttribute("placeholder", "votre adresse email");
     emailInput.required = true;
     //vérification de la validité du mail
     emailInput.addEventListener("change",function(event){
@@ -253,28 +265,28 @@ function afficheContent() {
       }
     })
     emailFormGroup.appendChild(emailInput);
-    //addresse
-    let addresseFormGroup = document.createElement("div");
-    addresseFormGroup.className = "form-group col-md-6 pl-4 pr-4";
-    formRow.appendChild(addresseFormGroup);
-    let addresseLabel = document.createElement("label");
-    addresseLabel.setAttribute("for", "addresse");
-    addresseLabel.textContent = "Addresse:";
-    addresseFormGroup.appendChild(addresseLabel);
-    let addresseInput = document.createElement("input");
-    addresseInput.setAttribute("type", "text");
-    addresseInput.className = "form-control";
-    addresseInput.setAttribute("name", "addresse");
-    addresseInput.setAttribute("placeholder", "votre addresse");
-    addresseInput.required = true;
-    //vérification de la viladiaté de l'addresse
-    addresseInput.addEventListener("change",function(event){
-      if(isValidAddresse(addresseInput.value) == false){
+    //adresse
+    let adresseFormGroup = document.createElement("div");
+    adresseFormGroup.className = "form-group col-md-6 pl-4 pr-4";
+    formRow.appendChild(adresseFormGroup);
+    let adresseLabel = document.createElement("label");
+    adresseLabel.setAttribute("for", "adresse");
+    adresseLabel.textContent = "Adresse:";
+    adresseFormGroup.appendChild(adresseLabel);
+    let adresseInput = document.createElement("input");
+    adresseInput.setAttribute("type", "text");
+    adresseInput.className = "form-control";
+    adresseInput.setAttribute("name", "adresse");
+    adresseInput.setAttribute("placeholder", "votre adresse");
+    adresseInput.required = true;
+    //vérification de la viladiaté de l'adresse
+    adresseInput.addEventListener("change",function(event){
+      if(isValidAdresse(adresseInput.value) == false){
         event.preventDefault();
-        alert("veuillez ne pas saisir de symbole dans votre addresse.")
+        alert("veuillez ne pas saisir de symbole dans votre adresse.")
       }
     })
-    addresseFormGroup.appendChild(addresseInput);
+    adresseFormGroup.appendChild(adresseInput);
     //numéro de téléphone
     let phoneFormGroup = document.createElement("div");
     phoneFormGroup.className = "form-group col-md-6 pl-4 pr-4";
@@ -326,6 +338,14 @@ function afficheContent() {
     commanderButton.id = "commanderButton";
     commanderButton.textContent = "COMMANDER";
     form.appendChild(commanderButton);
+    //button retour à la page d'acceuille
+    let retourAccueilButton = document.createElement("a");
+    retourAccueilButton.setAttribute("class","btn btn-danger mt-4");
+    retourAccueilButton.setAttribute("href","index.html");
+    retourAccueilButton.setAttribute("role","button");
+    retourAccueilButton.textContent = "Retourner à la page d'accueil";
+    bigContainerPanier.appendChild(retourAccueilButton);
+
   }
 }
 
