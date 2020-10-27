@@ -143,6 +143,7 @@ function afficheContent() {
     for (let item of basketContentArray) {
       prixTotal += item.quantite * item.price;
     }
+    console.log(prixTotal);
     calculSpan.textContent = prixTotal + "€";
     prixTotalP.appendChild(calculSpan);
     //vider le panier
@@ -198,6 +199,12 @@ function afficheContent() {
     function isValidPhone(value){
       return /(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}/.test(value);
     }
+   
+    // création fonctions de validité ville
+    function isValidVille(value) {
+      return /^[A-Za-zÀ-ÿ\.'*`´’,\- "]{1,40}$/.test(value);
+    }
+
 
     //prénom
     let prenomFormGroup = document.createElement("div");
@@ -325,9 +332,9 @@ function afficheContent() {
     villeInput.required = true;
     //vérification de la validaté de la ville
     villeInput.addEventListener("change",function(event){
-      if(isValid(villeInput.value) == false){
+      if(isValidVille(villeInput.value) == false){
         event.preventDefault();
-        alert("veuillez saisir corrtement votre  ville.")
+        alert("veuillez saisir correctement votre ville.")
       }
     })
     villeFormGroup.appendChild(villeInput);
@@ -338,6 +345,92 @@ function afficheContent() {
     commanderButton.id = "commanderButton";
     commanderButton.textContent = "COMMANDER";
     form.appendChild(commanderButton);
+
+  
+   // envoie des données panier + contact au serveur si le formulaire est valide
+    commanderButton.addEventListener("click",function(event){
+      event.preventDefault();
+      console.log(isValid(prenomInput.value));
+      console.log(isValid(nomInput.value));
+      console.log(isValidMail(emailInput.value));
+      console.log(isValidAdresse(adresseInput.value));
+      console.log(isValidPhone(phoneInput.value));
+      console.log(isValidVille(villeInput.value));
+
+      if(isValid(prenomInput.value)&&isValid(nomInput.value)&&isValidMail(emailInput.value)&&isValidAdresse(adresseInput.value)&&isValidPhone(phoneInput.value)&&isValidVille(villeInput.value)){
+        event.preventDefault();
+  
+         // envoie du prix total au localStorage
+         localStorage.setItem('totalPrice', prixTotal);
+         const storagePrice = localStorage.getItem('totalPrice');
+         console.log(storagePrice);
+
+         //envoie cameras choisis au localStorage
+         let camerasChoisis =localStorage.setItem("camerasChoisis",JSON.stringify(basketContentArray));
+         console.log(camerasChoisis);
+
+         //Création de l'objet "contact"
+         let contact = {
+          firstName:  prenomInput.value,
+          lastName: nomInput.value,
+          address: adresseInput.value,
+          city: villeInput.value,
+          email: emailInput.value,
+      }
+         console.log(contact);
+         // envoie du contact au localStorage
+         localStorage.setItem('contact',JSON.stringify(contact));
+        
+         // création du tableau products (id des cameras du panier)
+         let products = [];
+         for (camera of basketContentArray){
+           let produitsID = camera.ID;
+           
+           products.push(produitsID);
+         }
+         console.log(products);
+
+         // création d'un objet regroupant contact et produits
+         let send = {
+          contact,
+          products,
+      }
+      console.log(send);
+
+
+      // envoie des données au serveur
+      const post = async function (data){
+        try {
+            let response = await fetch('http://localhost:3000/api/cameras/order', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if(response.ok) {
+                let data = await response.json();
+                console.log(data.orderId);
+                localStorage.setItem("responseOrder", data.orderId);
+                window.location = "confirmation.html";
+                localStorage.removeItem("basketContentArray");
+
+            } else {
+                event.preventDefault();
+                console.error('Retour du serveur : ', response.status);
+                alert('Erreur rencontrée : ' + response.status);
+            } 
+        } catch (error) {
+            alert("Erreur : " + error);
+        } 
+    };
+    post(send);
+      }
+      else{
+        alert("error formulaire");
+      }
+    });
     //button retour à la page d'acceuille
     let retourAccueilButton = document.createElement("a");
     retourAccueilButton.setAttribute("class","btn btn-danger mt-4");
@@ -345,7 +438,6 @@ function afficheContent() {
     retourAccueilButton.setAttribute("role","button");
     retourAccueilButton.textContent = "Retourner à la page d'accueil";
     bigContainerPanier.appendChild(retourAccueilButton);
-
   }
 }
 
