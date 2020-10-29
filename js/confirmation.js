@@ -155,10 +155,10 @@ let totalNetP = document.createElement("p");
 totalNetP.textContent = cameraChoisi.price +"€";
 rightDiv.appendChild(totalNetP);
 let calculTVAp = document.createElement("p");
-calculTVAp.textContent = (cameraChoisi.price *0.2) +"€";
+calculTVAp.textContent = parseInt((cameraChoisi.price *0.2)) +"€";
 rightDiv.appendChild(calculTVAp);
 let costTotalp = document.createElement("p");
-costTotalp.textContent =parseFloat(cameraChoisi.price *0.2 +cameraChoisi.price) +"€"
+costTotalp.textContent =parseInt((cameraChoisi.price *0.2 +cameraChoisi.price))+"€"
 rightDiv.appendChild(costTotalp);
 
 

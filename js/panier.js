@@ -290,7 +290,7 @@ function afficheContent() {
     adresseInput.addEventListener("change",function(event){
       if(isValidAdresse(adresseInput.value) == false){
         event.preventDefault();
-        alert("veuillez ne pas saisir de symbole dans votre adresse.")
+        alert("veuillez saisir correctement votre adresse.")
       }
     })
     adresseFormGroup.appendChild(adresseInput);
