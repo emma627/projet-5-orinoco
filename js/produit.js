@@ -1,6 +1,6 @@
 //récupérerqtion de l'ID URL de la page
 const queryString = window.location.search;
-console.log(window);
+console.log(window.location);
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get("id");
 console.log(id);
