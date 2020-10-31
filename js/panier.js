@@ -1,5 +1,5 @@
 // récuperer des données depuis localStorage
-let basketContentArray = JSON.parse(localStorage.getItem("basketContentArray"));
+let basketContentArray = JSON.parse(localStorage.getItem("basketContent"));
 console.log(basketContentArray);
 
 function afficheContent() {
@@ -180,7 +180,7 @@ function afficheContent() {
     formRow.setAttribute("class", "form-row mt-4");
     form.appendChild(formRow);
 
-    // création fonctions de validité prénom, nom, ville
+    // création fonctions de validité prénom, nom
     function isValid(value) {
       return /^[A-Z-a-z\s]{3,40}$/.test(value);
     }
@@ -202,7 +202,7 @@ function afficheContent() {
    
     // création fonctions de validité ville
     function isValidVille(value) {
-      return /^[A-Za-zÀ-ÿ\.'*`´’,\- "]{1,40}$/.test(value);
+      return /^[A-Za-zÀ-ÿ\.'*`´’,\- "]{1,45}$/.test(value);
     }
 
 

@@ -9,7 +9,6 @@ request.onload = function (){
        for (let camera of cameras){
          
          const camerasRowDiv = document.getElementById("cameras");
-
         //création de div col bootstrap  
          let colDiv = document.createElement("div");
          colDiv.classList.add("col-12");
@@ -87,7 +86,6 @@ request.onload = function (){
          arrowIcon.classList.add("fa-arrow-right");
          arrowIcon.classList.add("ml-2");
          produitLien.appendChild(arrowIcon);
-          ;
        }
     }
 }

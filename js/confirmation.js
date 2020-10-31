@@ -161,20 +161,6 @@ let costTotalp = document.createElement("p");
 costTotalp.textContent =parseInt((cameraChoisi.price *0.2 +cameraChoisi.price))+"€"
 rightDiv.appendChild(costTotalp);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

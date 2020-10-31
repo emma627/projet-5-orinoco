@@ -187,19 +187,18 @@ console.log(camera);
         function addToBasket(cameraChoisi) {
           //récupérer des données véritables si le tableau exsite déjà
           let basketContentArray = JSON.parse(
-            localStorage.getItem("basketContentArray")
+            localStorage.getItem("basketContent")
           );
           //si le tableau n'existe pas, créer un tableau
           if (basketContentArray == null) {
             basketContentArray = [];
-          }
-
           basketContentArray.push(cameraChoisi);
           localStorage.setItem(
-            "basketContentArray",
+            "basketContent",
             JSON.stringify(basketContentArray)
           );
-          let test = confirm('voulez vous allez au panier?');
+          }
+          let test = confirm('voulez-vous ajouter cet article dans votre panier?');
           if (test){
             window.location.href = "panier.html";
           }else{
