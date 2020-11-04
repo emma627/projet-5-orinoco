@@ -3,6 +3,8 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* menu de navigation */
 .navbar {
   background-color: rgb(243, 234, 241);
   display: flex;
@@ -28,6 +30,7 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+/*  end of menu de navigation */
 
 .fa-camera {
   font-size: 28px;

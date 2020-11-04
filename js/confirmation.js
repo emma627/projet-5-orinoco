@@ -94,6 +94,7 @@ facturationDiv.appendChild(villeP);
 let itemSection = document.createElement("section");
 itemSection.setAttribute("class","items mt-4 section-content item-content");
 bigContainerConfirmation.appendChild(itemSection);
+let total = 0;
 for(cameraChoisi of camerasChoisis){
 let itemRow = document.createElement("div");
 itemRow.className = "row";
@@ -126,8 +127,11 @@ let productprixDiv = document.createElement("div");
 productprixDiv.setAttribute("class","col-sm price text-right");
 itemRow.appendChild(productprixDiv);
 let confirmationPrixP = document.createElement("p");
-confirmationPrixP.textContent = "Prix: " + cameraChoisi.price+ "€";
+confirmationPrixP.textContent = "Prix: " + cameraChoisi.price*cameraChoisi.quantite+ "€";
 productprixDiv.appendChild(confirmationPrixP);
+total+=cameraChoisi.price*cameraChoisi.quantite;
+}
+
 //section amout
 let amoutSection = document.createElement("section");
 amoutSection.setAttribute("class","total-amount section-content mt-4");
@@ -152,17 +156,15 @@ let rightDiv = document.createElement("div");
 rightDiv.setAttribute("class","col-4 text-right");
 amoutRow.appendChild(rightDiv);
 let totalNetP = document.createElement("p");
-totalNetP.textContent = cameraChoisi.price +"€";
+totalNetP.textContent = total.toFixed(2) +"€";
 rightDiv.appendChild(totalNetP);
 let calculTVAp = document.createElement("p");
-calculTVAp.textContent = parseInt((cameraChoisi.price *0.2)) +"€";
+//calculTVAp.textContent = Math.round((total *0.2)*10)/10 +"€";
+calculTVAp.textContent = (total *0.2).toFixed(2) +"€";
 rightDiv.appendChild(calculTVAp);
 let costTotalp = document.createElement("p");
-costTotalp.textContent =parseInt((cameraChoisi.price *0.2 +cameraChoisi.price))+"€"
+costTotalp.textContent =(total *1.2).toFixed(2)+"€"
 rightDiv.appendChild(costTotalp);
-
-}
-
 
 
 

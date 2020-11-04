@@ -9,8 +9,17 @@ console.log(id);
 //     const id = queryString.replace("?id=","");
 //     return id;
 // }
-
-
+/*
+function isInBasket(tab,camera){
+  let test = false;
+  for (let a of tab){
+    if (a.id == camera.id){
+      test=true;
+    }
+  }
+  return test;
+}
+*/
 function loadCamera() {
   let request = new XMLHttpRequest();
 
@@ -185,26 +194,42 @@ console.log(camera);
         console.log(cameraChoisi);
         //récupérer des données et envoyer au panier
         function addToBasket(cameraChoisi) {
+          
           //récupérer des données véritables si le tableau exsite déjà
           let basketContentArray = JSON.parse(
             localStorage.getItem("basketContent")
           );
+           
           //si le tableau n'existe pas, créer un tableau
           if (basketContentArray == null) {
             basketContentArray = [];
+          } 
+          let isNotInBasket = true;         
+          for (let item of basketContentArray){
+            if(item.ID == cameraChoisi.ID){
+              if(item.lentille == cameraChoisi.lentille){
+              isNotInBasket = false; 
+              item.quantite = parseInt(item.quantite) +  parseInt(cameraChoisi.quantite) ;
+              }
+            }
+          }
+
+
+          if (isNotInBasket){
           basketContentArray.push(cameraChoisi);
+          }
           localStorage.setItem(
             "basketContent",
             JSON.stringify(basketContentArray)
           );
-          }
+          
           let test = confirm('voulez-vous ajouter cet article dans votre panier?');
           if (test){
             window.location.href = "panier.html";
           }else{
             window.location.href = "index.html";
           }
-          
+         
         }
 
         // //récupérer des données véritables si le tableau exsite déjà

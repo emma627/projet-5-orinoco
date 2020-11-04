@@ -1,14 +1,14 @@
 // récuperer des données depuis localStorage
-let basketContentArray = JSON.parse(localStorage.getItem("basketContent"));
-console.log(basketContentArray);
+let panier = JSON.parse(localStorage.getItem("basketContent"));
+console.log(panier);
 
 function afficheContent() {
   const bigContainerPanier = document.getElementById("panier-page");
   // bien vider le contenu html dans bigContainer
-  bigContainerPanier.innerHTML = "";
+     bigContainerPanier.innerHTML = "";
 
   //création de message si le panier est vide -row,col,h3,img
-  if (basketContentArray == null || basketContentArray.length === 0) {
+  if (panier == null || panier.length === 0) {
     let panierVideRow = document.createElement("div");
     panierVideRow.className = "row";
     bigContainerPanier.appendChild(panierVideRow);
@@ -26,10 +26,11 @@ function afficheContent() {
     panierVideImg.src = "./images/empty-cart.png";
     panierVideImg.setAttribute("width", "150px");
     panierVideCol.appendChild(panierVideImg);
-  } else {
+  } 
+  else {
     //si il y des articles choisis dans le panier,afficher les détailles
-    for (let i = 0; i < basketContentArray.length; i++) {
-      console.log(basketContentArray[i]);
+    for (let i = 0; i < panier.length; i++) {
+      console.log(panier[i]);
       //création de row
       let basketItemRow = document.createElement("div");
       basketItemRow.setAttribute("class", "row mt-3");
@@ -46,7 +47,7 @@ function afficheContent() {
       basketItemCol.appendChild(imgSpan);
 
       let itemImg = document.createElement("img");
-      itemImg.src = basketContentArray[i].image;
+      itemImg.src = panier[i].image;
       itemImg.setAttribute("width", "150px");
       imgSpan.appendChild(itemImg);
 
@@ -56,17 +57,17 @@ function afficheContent() {
       basketItemCol.appendChild(itemDescription);
 
       let itemName = document.createElement("span");
-      itemName.textContent = basketContentArray[i].name;
+      itemName.textContent = panier[i].name;
       let br1 = document.createElement("br");
       itemName.append(br1);
       itemDescription.appendChild(itemName);
       let itemLentille = document.createElement("span");
-      itemLentille.textContent = "Lentille: " + basketContentArray[i].lentille;
+      itemLentille.textContent = "Lentille: " + panier[i].lentille;
       itemDescription.appendChild(itemLentille);
       let br2 = document.createElement("br");
       itemLentille.appendChild(br2);
       let itemQuantite = document.createElement("span");
-      itemQuantite.textContent = "Quantité: " + basketContentArray[i].quantite;
+      itemQuantite.textContent = "Quantité: " + panier[i].quantite;
       itemDescription.appendChild(itemQuantite);
       //prix,supprimer item de l'appareill photo
       let basketItemColDroite = document.createElement("div");
@@ -83,7 +84,7 @@ function afficheContent() {
       itemPrixUnitaire.textContent = "Prix unitaire: ";
       itemPriceP.appendChild(itemPrixUnitaire);
       let itemUnitPrice = document.createElement("span");
-      itemUnitPrice.textContent = basketContentArray[i].price + "€";
+      itemUnitPrice.textContent = panier[i].price + "€";
       itemPriceP.appendChild(itemUnitPrice);
       //prix * quantité
       let itemPrixP = document.createElement("p");
@@ -94,7 +95,7 @@ function afficheContent() {
       itemPrixP.appendChild(itemPrix);
       let itemPrice = document.createElement("span");
       itemPrice.textContent =
-        basketContentArray[i].price * basketContentArray[i].quantite + "€";
+        panier[i].price * panier[i].quantite + "€";
       itemPrixP.appendChild(itemPrice);
       //button supprimer l'article
       let supprimerButton = document.createElement("button");
@@ -102,24 +103,26 @@ function afficheContent() {
       supprimerButton.setAttribute("class", "btn btn-warning");
       supprimerButton.setAttribute("data-index", i);
       supprimerButton.textContent = "Supprimer ";
-      supprimerButton.addEventListener("click", function (event) {
-        event.preventDefault();
-        let i = this.getAttribute("data-index");
-        alert("Cet article a bien été supprimé !");
-        //on efface dans le tableau js
-        basketContentArray.splice(i, 1);
-        // on enregistre le nouveau tableau dans localStorage
-        localStorage.setItem(
-          "basketContentArray",
-          JSON.stringify(basketContentArray)
-        );
-        // re afficher la partie html
-        afficheContent();
-      });
       let trashIconItem = document.createElement("i");
       trashIconItem.setAttribute("class", "fas fa-trash-alt");
       supprimerButton.appendChild(trashIconItem);
       basketItemColDroite.appendChild(supprimerButton);
+      supprimerButton.addEventListener("click", function (event) {
+        event.preventDefault();
+       
+        let i = this.getAttribute("data-index");
+       
+        //on efface dans le tableau js
+        panier.splice(i, 1);
+        // on enregistre le nouveau tableau dans localStorage
+        localStorage.setItem(
+          "basketContent",
+          JSON.stringify(panier)
+        );
+        // re afficher la partie html
+        afficheContent();
+         alert("Cet article a bien été supprimé !");
+      });
     }
     //affiche du prix total ou vider le panier
     let prixTotalRow = document.createElement("div");
@@ -140,7 +143,7 @@ function afficheContent() {
     calculSpan.setAttribute("class", "text-primary items-price");
     //calcul du prix total
     let prixTotal = 0;
-    for (let item of basketContentArray) {
+    for (let item of panier) {
       prixTotal += item.quantite * item.price;
     }
     console.log(prixTotal);
@@ -156,7 +159,7 @@ function afficheContent() {
     buttonBtn.textContent = "Vider votre panier ";
     buttonBtn.addEventListener("click", function (event) {
       event.preventDefault();
-      localStorage.clear("basketContentArray");
+      localStorage.clear("basketContent");
       alert("Votre panier a bien été vidé !");
       window.location.href = "panier.html";
     });
@@ -366,7 +369,7 @@ function afficheContent() {
          console.log(storagePrice);
 
          //envoie cameras choisis au localStorage
-         let camerasChoisis =localStorage.setItem("camerasChoisis",JSON.stringify(basketContentArray));
+         let camerasChoisis =localStorage.setItem("camerasChoisis",JSON.stringify(panier));
          console.log(camerasChoisis);
 
          //Création de l'objet "contact"
@@ -383,7 +386,7 @@ function afficheContent() {
         
          // création du tableau products (id des cameras du panier)
          let products = [];
-         for (camera of basketContentArray){
+         for (camera of panier){
            let produitsID = camera.ID;
            
            products.push(produitsID);
