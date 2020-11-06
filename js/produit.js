@@ -9,17 +9,7 @@ console.log(id);
 //     const id = queryString.replace("?id=","");
 //     return id;
 // }
-/*
-function isInBasket(tab,camera){
-  let test = false;
-  for (let a of tab){
-    if (a.id == camera.id){
-      test=true;
-    }
-  }
-  return test;
-}
-*/
+
 function loadCamera() {
   let request = new XMLHttpRequest();
 
@@ -204,6 +194,7 @@ console.log(camera);
           if (basketContentArray == null) {
             basketContentArray = [];
           } 
+          //produit sur la même ligne si c'est la même model
           let isNotInBasket = true;         
           for (let item of basketContentArray){
             if(item.ID == cameraChoisi.ID){
@@ -232,30 +223,6 @@ console.log(camera);
          
         }
 
-        // //récupérer des données véritables si le tableau exsite déjà
-        // let basketContentArray = JSON.parse(localStorage.getItem("basketContentArray"));
-        // //si le tableau n'est pas vide
-        // console.log(basketContentArray);
-        // if (basketContentArray != undefined){
-        //     //ajouter l'objet(articles choisis) au taleau
-        //     basketContentArray.push(cameraChoisi);
-        //     //ajouter l'objet serialied au localStorage
-        //     localStorage.setItem("basketContentArray",JSON.stringify(basketContentArray));
-        //     console.log(basketContentArray);
-        //     // if (window.confirm(camera.name + "a bien été ajouté au panier")){
-        //     //     window.location.href = "panier.html";
-        //     // } else{
-        //     //     window.location.href = "index.html";
-        //     // }
-
-        // //si le tableau n'existe pas, créer un tableau
-        // } else{
-        //     basketContentArray = [];
-        //     basketContentArray.push(cameraChoisi);
-        //     //ajouter l'objet serialied au localStorage
-        //     localStorage.setItem("basketContentArray",JSON.stringify(basketContentArray));
-        //     console.log(basketContentArray);
-        // };
         addToBasket(cameraChoisi);
       });
     }
