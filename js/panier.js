@@ -124,7 +124,7 @@ function afficheContent() {
          alert("Cet article a bien été supprimé !");
       });
     }
-    //affiche du prix total ou vider le panier
+    //affiche du prix total et vider le panier
     let prixTotalRow = document.createElement("div");
     prixTotalRow.setAttribute("class", "row prix-total mt-3");
     bigContainerPanier.appendChild(prixTotalRow);
@@ -223,6 +223,7 @@ function afficheContent() {
     prenomInput.setAttribute("name", "prénom");
     prenomInput.setAttribute("placeholder", "votre prénom");
     prenomInput.required = true;
+    
     // Vérification de la validité du prénom
     prenomInput.addEventListener("change", function (event) {
       if (isValid(prenomInput.value) == false) {

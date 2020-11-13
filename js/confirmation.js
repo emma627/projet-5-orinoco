@@ -119,7 +119,7 @@ let productLentilleP = document.createElement("p");
 productLentilleP.textContent = cameraChoisi.lentille;
 productNameDiv.appendChild(productLentilleP);
 let productQantiteP = document.createElement("p");
-//hrere
+//quantité
 productQantiteP.textContent = "Quantité: "+ cameraChoisi.quantite;
 productNameDiv.appendChild(productQantiteP);
 //prix pour chaque produit

@@ -184,45 +184,39 @@ console.log(camera);
         console.log(cameraChoisi);
         //récupérer des données et envoyer au panier
         function addToBasket(cameraChoisi) {
-          
           //récupérer des données véritables si le tableau exsite déjà
           let basketContentArray = JSON.parse(
             localStorage.getItem("basketContent")
           );
-           
           //si le tableau n'existe pas, créer un tableau
           if (basketContentArray == null) {
             basketContentArray = [];
           } 
-          //produit sur la même ligne si c'est la même model
+          //produit sur la même ligne si c'est le même model
           let isNotInBasket = true;         
           for (let item of basketContentArray){
-            if(item.ID == cameraChoisi.ID){
-              if(item.lentille == cameraChoisi.lentille){
+            if((item.ID == cameraChoisi.ID)&&(item.lentille == cameraChoisi.lentille) ){
+              //si le même model n'a pas la même lentille
               isNotInBasket = false; 
               item.quantite = parseInt(item.quantite) +  parseInt(cameraChoisi.quantite) ;
               }
-            }
           }
-
-
+          // ajouter l'objet au tableau
           if (isNotInBasket){
           basketContentArray.push(cameraChoisi);
           }
+          //sérialiser le tableau
           localStorage.setItem(
             "basketContent",
             JSON.stringify(basketContentArray)
           );
-          
           let test = confirm('voulez-vous ajouter cet article dans votre panier?');
           if (test){
             window.location.href = "panier.html";
           }else{
             window.location.href = "index.html";
           }
-         
         }
-
         addToBasket(cameraChoisi);
       });
     }
