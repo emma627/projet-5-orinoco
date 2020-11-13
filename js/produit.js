@@ -182,7 +182,8 @@ console.log(camera);
           quantite: selectQuantite.value,
         };
         console.log(cameraChoisi);
-        //récupérer des données et envoyer au panier
+
+        // function récupérer des données et envoyer au panier
         function addToBasket(cameraChoisi) {
           //récupérer des données véritables si le tableau exsite déjà
           let basketContentArray = JSON.parse(
@@ -192,17 +193,19 @@ console.log(camera);
           if (basketContentArray == null) {
             basketContentArray = [];
           } 
-          //produit sur la même ligne si c'est le même model
+         
           let isNotInBasket = true;         
           for (let item of basketContentArray){
+            //si le produit est de  même model et de  même lentille 
             if((item.ID == cameraChoisi.ID)&&(item.lentille == cameraChoisi.lentille) ){
-              //si le même model n'a pas la même lentille
+              //on dit que le produit est dans le talbeau, isNotInBasket est faux
               isNotInBasket = false; 
+              //on ajoute la nouvelle quantité à l'ancienne quantité
               item.quantite = parseInt(item.quantite) +  parseInt(cameraChoisi.quantite) ;
               }
           }
           // ajouter l'objet au tableau
-          if (isNotInBasket){
+          if (isNotInBasket == true){
           basketContentArray.push(cameraChoisi);
           }
           //sérialiser le tableau
