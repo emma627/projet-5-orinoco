@@ -193,7 +193,7 @@ console.log(camera);
           if (basketContentArray == null) {
             basketContentArray = [];
           } 
-         
+         // on définit par défaut que l'appareil avec sa lentille n'est pas dans le panier
           let isNotInBasket = true;         
           for (let item of basketContentArray){
             //si le produit est de  même model et de  même lentille 
@@ -206,7 +206,7 @@ console.log(camera);
           }
           // ajouter l'objet au tableau
           if (isNotInBasket == true){
-          basketContentArray.push(cameraChoisi);
+            basketContentArray.push(cameraChoisi);
           }
           //sérialiser le tableau
           localStorage.setItem(

@@ -3,7 +3,7 @@ let orderId = localStorage.getItem('responseOrder');
 console.log(orderId);
 
 //recupération du produits choisi
-let camerasChoisis=JSON.parse(localStorage.getItem("camerasChoisis"));
+let camerasChoisis=JSON.parse(localStorage.getItem("basketContent"));
 console.log(camerasChoisis);
 
 // récupération du prix total de la commande

@@ -369,10 +369,6 @@ function afficheContent() {
          const storagePrice = localStorage.getItem('totalPrice');
          console.log(storagePrice);
 
-         //envoie cameras choisis au localStorage
-         let camerasChoisis =localStorage.setItem("camerasChoisis",JSON.stringify(panier));
-         console.log(camerasChoisis);
-
          //Création de l'objet "contact"
          let contact = {
           firstName:  prenomInput.value,
